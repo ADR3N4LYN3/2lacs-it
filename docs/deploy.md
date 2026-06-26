@@ -25,5 +25,6 @@ Le workflow [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml) bu
 ## Notes hébergement
 
 - Format d'URL : `build.format: 'directory'` → chaque page = `/page/index.html`, servie proprement par Apache.
+- Bascule depuis WordPress : `public/.htaccess` écrase celui de WP au déploiement (coupe ses réécritures, force `DirectoryIndex index.html`). Les autres fichiers WP restent à la racine mais ne sont plus servis — à supprimer manuellement pour faire le ménage.
 - `contact.php` : définir `CONTACT_TO` (destinataire) et vérifier que `mail()` est actif sur l'offre Amen.
 - HTTPS/SSL : certificat géré côté Amen (Let's Encrypt inclus dans l'offre).

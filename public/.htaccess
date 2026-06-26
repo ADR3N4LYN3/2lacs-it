@@ -1,0 +1,23 @@
+# Site statique 2 LACS Informatique (Astro).
+# Déployé à la racine web, ce fichier ÉCRASE l'ancien .htaccess de WordPress :
+# il neutralise les règles de réécriture WP qui détourneraient les URLs.
+# Apache sert nativement /page/index.html (astro.config → build.format: 'directory').
+
+# La page d'accueil = index.html (et non l'ancien index.php de WordPress).
+DirectoryIndex index.html
+
+# Aucune réécriture nécessaire pour un site statique : on coupe celles héritées de WP.
+<IfModule mod_rewrite.c>
+  RewriteEngine Off
+</IfModule>
+
+# Page 404 personnalisée (Astro génère /404.html).
+ErrorDocument 404 /404.html
+
+# Petits plus perf/sécurité (sans risque sur du statique).
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/xml image/svg+xml
+</IfModule>
