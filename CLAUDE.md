@@ -41,6 +41,7 @@ Site vitrine **2 LACS Informatique**, statique, hébergé chez Amen.fr (mutualis
 
 - Code et libellés en français (locale `fr-FR`).
 - Tailwind v4 : config dans `src/styles/global.css` (`@theme`), pas de `tailwind.config.js`. Customisation look → cf. skill `topic-design-system`.
+- Design system « Alpine Dusk » (`src/styles/global.css`) : navy `brand-*` + dégradé sunset `accent-*` (or→corail→rose, tiré du logo), neutres chauds `paper`/`sand`, titres `font-display` (Bricolage Grotesque) + corps Hanken Grotesk. Utilitaires maison : `.topo` (texture courbes de niveau, sections sombres), `.glow-sunset`, `.text-sunset`, `.eyebrow`. Logo réel dans `src/assets/` (`logo-2lacs` = header, `logo-mark` = mark/footer/hero). Garder cette identité — ne pas revenir au blanc plat ni au dégradé bleu générique.
 - Doc API Astro/Tailwind à jour → MCP Context7 avant de coder.
 
 ## Pièges

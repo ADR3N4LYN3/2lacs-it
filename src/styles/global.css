@@ -1,23 +1,40 @@
 @import 'tailwindcss';
 
 /*
- * Design tokens (Tailwind v4, config CSS-first).
- * Palette de marque + typo : source unique de l'identité visuelle.
- * Customisation fine du look → voir le skill topic-design-system.
+ * Design system — « Alpine Dusk ».
+ * Identité tirée du logo 2 LACS : navy profond + dégradé soleil couchant (or → corail → rose)
+ * sur le motif montagne, papier chaud, texture topographique (courbes de niveau).
+ * Source unique de l'identité visuelle. Customisation fine → skill topic-design-system.
  */
 @theme {
-  --color-brand-50: oklch(0.97 0.02 240);
-  --color-brand-100: oklch(0.93 0.04 240);
-  --color-brand-300: oklch(0.78 0.11 240);
-  --color-brand-500: oklch(0.58 0.18 245);
-  --color-brand-600: oklch(0.5 0.18 248);
-  --color-brand-700: oklch(0.42 0.16 250);
-  --color-brand-900: oklch(0.26 0.09 252);
+  /* Navy / ardoise alpine (texte, sections sombres) */
+  --color-brand-50: oklch(0.96 0.012 255);
+  --color-brand-100: oklch(0.92 0.022 255);
+  --color-brand-200: oklch(0.83 0.035 256);
+  --color-brand-300: oklch(0.71 0.05 258);
+  --color-brand-500: oklch(0.5 0.06 260);
+  --color-brand-600: oklch(0.4 0.06 261);
+  --color-brand-700: oklch(0.32 0.055 262);
+  --color-brand-800: oklch(0.25 0.05 263);
+  --color-brand-900: oklch(0.19 0.042 264);
 
-  --color-accent-400: oklch(0.78 0.15 195);
-  --color-accent-500: oklch(0.7 0.16 195);
+  /* Sunset — dégradé du logo (or → corail → rose). Accent signature. */
+  --color-accent-300: oklch(0.84 0.13 72);
+  --color-accent-400: oklch(0.75 0.15 38);
+  --color-accent-500: oklch(0.7 0.16 20);
+  --color-accent-600: oklch(0.66 0.17 8);
 
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  /* Lac (eau turquoise de la photo) — accent secondaire froid */
+  --color-lake-400: oklch(0.78 0.1 198);
+  --color-lake-600: oklch(0.58 0.09 205);
+
+  /* Neutres chauds — fini le blanc pur */
+  --color-paper: oklch(0.985 0.008 80);
+  --color-sand: oklch(0.955 0.014 78);
+  --color-ink: oklch(0.17 0.04 264);
+
+  --font-sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Hanken Grotesk Variable', sans-serif;
 }
 
 html {
@@ -25,34 +42,86 @@ html {
 }
 
 body {
-  @apply bg-white text-brand-900 antialiased;
+  @apply bg-paper text-brand-900 antialiased;
+  font-feature-settings: 'ss01', 'cv01';
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+}
+
+/* Surtitre de section : marqueur montagne biseauté + label capitales. */
+.eyebrow {
+  @apply inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] text-accent-600 uppercase;
+}
+.eyebrow::before {
+  content: '';
+  @apply h-2 w-2 -skew-x-12 bg-accent-400;
+}
+
+/* Texture topographique (courbes de niveau) — posée sur les sections sombres. */
+.topo {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.2'%3E%3Cpath d='M-20 60 C 40 20 120 90 200 50 S 320 20 380 60'/%3E%3Cpath d='M-20 96 C 40 56 120 126 200 86 S 320 56 380 96'/%3E%3Cpath d='M-20 132 C 40 92 120 162 200 122 S 320 92 380 132'/%3E%3Cpath d='M-20 168 C 40 128 120 198 200 158 S 320 128 380 168'/%3E%3Cpath d='M-20 204 C 40 164 120 234 200 194 S 320 164 380 204'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* Lueur sunset radiale (atmosphère des sections sombres). */
+.glow-sunset {
+  background-image: radial-gradient(
+    60% 80% at 80% 0%,
+    color-mix(in oklch, var(--color-accent-400) 35%, transparent),
+    transparent 60%
+  );
+}
+
+/* Texte en dégradé sunset (titres d'accent). */
+.text-sunset {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-accent-300),
+    var(--color-accent-500) 55%,
+    var(--color-accent-600)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /*
  * Prose éditoriale (rendu Markdown des pages détail/légales).
- * Évite la dépendance @tailwindcss/typography : règles ciblées sur les balises générées.
+ * Évite @tailwindcss/typography : règles ciblées sur les balises générées.
  */
 .rich-text {
-  @apply leading-relaxed text-brand-900/80;
+  @apply leading-relaxed text-brand-800/90;
 }
 .rich-text > * + * {
   @apply mt-4;
 }
 .rich-text h2 {
-  @apply mt-10 text-xl font-bold tracking-tight text-brand-900;
+  @apply mt-10 font-display text-2xl font-semibold tracking-tight text-brand-900;
 }
 .rich-text h3 {
-  @apply mt-8 text-lg font-semibold text-brand-900;
+  @apply mt-8 font-display text-lg font-semibold text-brand-900;
 }
 .rich-text ul {
-  @apply mt-4 list-disc space-y-2 pl-5 marker:text-brand-300;
+  @apply mt-4 list-none space-y-2 pl-0;
+}
+.rich-text li {
+  @apply relative pl-6;
+}
+.rich-text li::before {
+  content: '';
+  @apply absolute top-2.5 left-0 h-1.5 w-1.5 -skew-x-12 bg-accent-400;
 }
 .rich-text a {
-  @apply font-medium text-brand-600 hover:underline;
+  @apply font-medium text-accent-600 underline decoration-accent-300 decoration-2 underline-offset-2 hover:text-accent-500;
 }
 .rich-text strong {
   @apply font-semibold text-brand-900;
 }
 .rich-text blockquote {
-  @apply mt-6 border-l-4 border-brand-300 bg-brand-50 py-3 pl-4 pr-3 text-brand-900/70 italic;
+  @apply mt-6 border-l-4 border-accent-400 bg-sand py-3 pr-3 pl-4 text-brand-800 italic;
 }
