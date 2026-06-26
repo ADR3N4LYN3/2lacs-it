@@ -2,15 +2,10 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { siteConfig } from '@/lib/site-config';
 
-// Feedback sans JS : contact.php redirige vers ?sent=1 ou ?error=1.
-const status = Astro.url.searchParams.get('sent')
-  ? 'sent'
-  : Astro.url.searchParams.get('error')
-    ? 'error'
-    : null;
-
 const field =
   'rounded-lg border border-edge bg-card px-3 py-2 text-content placeholder:text-muted focus:border-accent-400 focus:outline-none';
+
+const { turnstileSiteKey } = siteConfig;
 ---
 
 <BaseLayout
@@ -25,67 +20,156 @@ const field =
       Une question, un projet ? Écrivez-nous, nous revenons vers vous rapidement.
     </p>
 
-    {
-      status === 'sent' && (
-        <p class="mt-6 rounded-lg border border-accent-400/30 bg-accent-400/15 px-4 py-3 text-sm text-content">
-          Merci, votre message a bien été envoyé.
-        </p>
-      )
-    }
-    {
-      status === 'error' && (
-        <p class="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">
-          Une erreur est survenue. Réessayez ou écrivez-nous à {siteConfig.contact.email}.
-        </p>
-      )
-    }
-
-    <form method="POST" action="/contact.php" data-astro-reload class="mt-8 grid gap-5">
-      <!-- Honeypot anti-spam : masqué aux humains, rempli par les bots. -->
-      <input
-        type="text"
-        name="website"
-        tabindex="-1"
-        autocomplete="off"
-        class="hidden"
-        aria-hidden="true"
-      />
-
-      <div class="grid gap-5 sm:grid-cols-2">
-        <label class="grid gap-1 text-sm font-medium text-content">
-          Nom
-          <input type="text" name="name" required class={field} />
-        </label>
-
-        <label class="grid gap-1 text-sm font-medium text-content">
-          Prénom
-          <input type="text" name="prenom" class={field} />
-        </label>
-      </div>
-
-      <div class="grid gap-5 sm:grid-cols-2">
-        <label class="grid gap-1 text-sm font-medium text-content">
-          Email
-          <input type="email" name="email" required class={field} />
-        </label>
-
-        <label class="grid gap-1 text-sm font-medium text-content">
-          Entreprise
-          <input type="text" name="entreprise" class={field} />
-        </label>
-      </div>
-
-      <label class="grid gap-1 text-sm font-medium text-content">
-        Message
-        <textarea name="message" rows="6" required class={field}></textarea>
-      </label>
-
-      <button
-        type="submit"
-        class="justify-self-start rounded-full bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600 px-7 py-3 text-sm font-semibold text-brand-900 shadow-lg shadow-accent-500/20 transition hover:brightness-105"
+    {/* Confirmation — révélée côté client selon ?sent (le site est statique, cf. <script> plus bas). */}
+    <div
+      id="contact-success"
+      hidden
+      class="mt-10 rounded-2xl border border-accent-400/30 bg-accent-400/10 p-8 text-center"
+    >
+      <span
+        class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent-300 to-accent-500 text-brand-900"
       >
-        Envoyer
-      </button>
-    </form>
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </span>
+      <h2 class="mt-5 font-display text-2xl font-bold text-content">Message envoyé !</h2>
+      <p class="mt-2 text-muted">Merci, nous revenons vers vous très vite.</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a
+          href="/"
+          class="rounded-full bg-content px-5 py-2.5 text-sm font-semibold text-surface transition hover:opacity-90"
+        >
+          Retour à l'accueil
+        </a>
+        <a
+          href="/contact"
+          class="rounded-full border border-edge px-5 py-2.5 text-sm font-semibold text-content transition hover:border-accent-400"
+        >
+          Envoyer un autre message
+        </a>
+      </div>
+    </div>
+
+    <div id="contact-form-wrap">
+      <p
+        id="contact-error"
+        hidden
+        class="mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300"
+      >
+        Une erreur est survenue. Réessayez ou écrivez-nous à {siteConfig.contact.email}.
+      </p>
+
+      <p class="mt-6 text-xs text-muted">
+        Les champs marqués <span class="font-semibold text-accent-500">*</span> sont obligatoires.
+      </p>
+
+      <form method="POST" action="/contact.php" data-astro-reload class="mt-4 grid gap-5">
+        {/* Honeypot anti-spam : masqué aux humains, rempli par les bots. */}
+        <input
+          type="text"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+          class="hidden"
+          aria-hidden="true"
+        />
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="grid gap-1 text-sm font-medium text-content">
+            <span>Nom <span class="text-accent-500" aria-hidden="true">*</span></span>
+            <input type="text" name="name" required aria-required="true" class={field} />
+          </label>
+
+          <label class="grid gap-1 text-sm font-medium text-content">
+            <span>Prénom <span class="font-normal text-muted">(facultatif)</span></span>
+            <input type="text" name="prenom" class={field} />
+          </label>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="grid gap-1 text-sm font-medium text-content">
+            <span>Email <span class="text-accent-500" aria-hidden="true">*</span></span>
+            <input type="email" name="email" required aria-required="true" class={field} />
+          </label>
+
+          <label class="grid gap-1 text-sm font-medium text-content">
+            <span>Entreprise <span class="font-normal text-muted">(facultatif)</span></span>
+            <input type="text" name="entreprise" class={field} />
+          </label>
+        </div>
+
+        <label class="grid gap-1 text-sm font-medium text-content">
+          <span>Message <span class="text-accent-500" aria-hidden="true">*</span></span>
+          <textarea name="message" rows="6" required aria-required="true" class={field}></textarea>
+        </label>
+
+        {
+          turnstileSiteKey && (
+            <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" />
+          )
+        }
+
+        <button
+          type="submit"
+          class="justify-self-start rounded-full bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600 px-7 py-3 text-sm font-semibold text-brand-900 shadow-lg shadow-accent-500/20 transition hover:brightness-105"
+        >
+          Envoyer
+        </button>
+      </form>
+
+      {
+        turnstileSiteKey && (
+          <Fragment>
+            {/* api.js Cloudflare : volontairement SANS SRI — Cloudflare met ce script à jour,
+                un hash d'intégrité figé le casserait (recommandation officielle Turnstile). */}
+            <script
+              is:inline
+              src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+              async
+              defer
+            />
+            <script is:inline>
+              document.addEventListener('astro:page-load', () => {
+                const el = document.querySelector('.cf-turnstile:not([data-cf-rendered])');
+                if (el && window.turnstile) {
+                  window.turnstile.render(el);
+                  el.setAttribute('data-cf-rendered', '1');
+                }
+              });
+            </script>
+          </Fragment>
+        )
+      }
+    </div>
+
+    {/* Site statique : on révèle confirmation / erreur côté client selon les paramètres d'URL. */}
+    <script is:inline>
+      (function () {
+        function apply() {
+          const p = new URLSearchParams(location.search);
+          const sent = p.has('sent');
+          const err = p.has('error');
+          const s = document.getElementById('contact-success');
+          const w = document.getElementById('contact-form-wrap');
+          const e = document.getElementById('contact-error');
+          if (s) s.hidden = !sent;
+          if (w) w.hidden = sent;
+          if (e) e.hidden = !err;
+        }
+        apply();
+        document.addEventListener('astro:page-load', apply);
+      })();
+    </script>
   </section>
 </BaseLayout>

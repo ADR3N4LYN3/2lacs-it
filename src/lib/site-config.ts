@@ -28,6 +28,13 @@ export const siteConfig = {
   },
   /** Portail client (contrats de support technique) — hébergé hors de ce site. */
   supportUrl: 'https://support.2lacs-it.com',
+  /**
+   * Clé de site Cloudflare Turnstile (publique, OK en clair).
+   * Vide = anti-bot Turnstile désactivé (le formulaire reste protégé par honeypot + throttle).
+   * Renseigner après création du widget dans le dashboard Cloudflare ; côté serveur,
+   * définir le secret dans `/www/contact-secret.php` (hors dépôt).
+   */
+  turnstileSiteKey: '',
   nav: [
     { label: 'Accueil', href: '/' },
     { label: 'Services', href: '/services' },

@@ -11,6 +11,10 @@ node_modules/
 .env.*
 !.env.example
 
+# secret du formulaire (clé secrète Turnstile) — uploadé à la main sur le serveur
+contact-secret.php
+public/contact-secret.php
+
 # logs & tmp
 *.log
 npm-debug.log*
