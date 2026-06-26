@@ -35,4 +35,4 @@ jobs:
           FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-          lftp -e "set cmd:fail-exit yes; set ftp:ssl-allow no; set ftp:passive-mode true; set ftp:use-pasv-ip false; set net:max-retries 2; set net:timeout 25; mirror -R --verbose --ignore-time ./dist/ '$FTP_REMOTE_DIR'; bye" -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
+          lftp -e "set cmd:fail-exit yes; set ftp:ssl-allow no; set ftp:passive-mode on; set ftp:fix-pasv-address yes; set net:max-retries 2; set net:timeout 30; mirror -R --verbose --ignore-time ./dist/ '$FTP_REMOTE_DIR'; bye" -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
