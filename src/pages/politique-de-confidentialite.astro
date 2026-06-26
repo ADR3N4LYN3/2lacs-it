@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/lib/site-config';
+
+const updated = '26 juin 2026';
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Comment 2 LACS Informatique collecte et protège vos données personnelles."
+  path="/politique-de-confidentialite"
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <h1 class="text-3xl font-bold tracking-tight text-brand-900">Politique de confidentialité</h1>
+    <p class="mt-2 text-sm text-brand-900/50">Dernière mise à jour : {updated}</p>
+
+    <div class="rich-text mt-10">
+      <p>
+        La présente politique décrit la manière dont {siteConfig.name} traite les données personnelles
+        collectées via ce site. Ce site est statique : il ne propose ni compte utilisateur, ni espace
+        de commentaires. La seule collecte de données intervient lorsque vous nous écrivez via le formulaire
+        de contact.
+      </p>
+
+      <h2>Responsable du traitement</h2>
+      <p>
+        {siteConfig.name}, représentée par Christophe REVOIRE. Pour toute question relative à vos
+        données : <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>.
+      </p>
+
+      <h2>Données collectées et finalité</h2>
+      <p>
+        Via le formulaire de contact, nous collectons les informations que vous nous transmettez :
+        nom, prénom, adresse e-mail, entreprise et contenu de votre message. Ces données sont
+        utilisées dans le seul but de traiter votre demande et d'y répondre.
+      </p>
+      <p>
+        La base légale de ce traitement est votre consentement et/ou l'exécution de mesures
+        précontractuelles prises à votre demande.
+      </p>
+
+      <h2>Destinataires</h2>
+      <p>
+        Vos données sont destinées exclusivement à {siteConfig.name}. Elles ne sont ni vendues, ni
+        cédées, ni transmises à des tiers à des fins commerciales. Les messages sont acheminés via
+        notre hébergeur de messagerie (Amen), situé dans l'Union européenne.
+      </p>
+
+      <h2>Durée de conservation</h2>
+      <p>
+        Les messages reçus sont conservés le temps nécessaire au traitement de votre demande, puis
+        archivés et supprimés au plus tard 3 ans après notre dernier échange.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Conformément au Règlement général sur la protection des données (RGPD) et à la loi «
+        Informatique et Libertés », vous disposez d'un droit d'accès, de rectification,
+        d'effacement, de limitation, d'opposition et de portabilité de vos données. Vous pouvez
+        exercer ces droits en nous écrivant à <a href={`mailto:${siteConfig.contact.email}`}
+          >{siteConfig.contact.email}</a
+        >.
+      </p>
+      <p>
+        Vous avez également le droit d'introduire une réclamation auprès de la CNIL (<a
+          href="https://www.cnil.fr"
+          rel="noopener">cnil.fr</a
+        >).
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        Ce site ne dépose pas de cookie de suivi publicitaire ni d'outil de mesure d'audience tiers.
+        Pour plus de détails, consultez notre <a href="/politique-de-cookies"
+          >politique de cookies</a
+        >.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

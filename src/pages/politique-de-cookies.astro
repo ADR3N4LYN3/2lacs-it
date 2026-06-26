@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/lib/site-config';
+
+const updated = '26 juin 2026';
+---
+
+<BaseLayout
+  title="Politique de cookies"
+  description="Utilisation des cookies sur le site de 2 LACS Informatique."
+  path="/politique-de-cookies"
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <h1 class="text-3xl font-bold tracking-tight text-brand-900">Politique de cookies</h1>
+    <p class="mt-2 text-sm text-brand-900/50">Dernière mise à jour : {updated}</p>
+
+    <div class="rich-text mt-10">
+      <h2>En résumé</h2>
+      <p>
+        Ce site est statique et privilégie le respect de votre vie privée : il <strong
+          >ne dépose aucun cookie</strong
+        > de suivi, de publicité ni de mesure d'audience par des services tiers (type Google Analytics).
+        Aucune bannière de consentement n'est donc nécessaire pour naviguer.
+      </p>
+
+      <h2>Qu'est-ce qu'un cookie ?</h2>
+      <p>
+        Un cookie est un petit fichier déposé sur votre terminal lors de la visite d'un site. Il
+        permet notamment de mémoriser des préférences ou de mesurer la fréquentation. Leur dépôt,
+        hors cookies strictement nécessaires, requiert votre consentement.
+      </p>
+
+      <h2>Cookies utilisés sur ce site</h2>
+      <p>
+        À ce jour, ce site n'utilise aucun cookie. Le formulaire de contact n'en dépose pas non plus
+        : votre message est transmis par e-mail sans traceur.
+      </p>
+
+      <h2>Évolution</h2>
+      <p>
+        Si nous venions à intégrer un outil de mesure d'audience ou tout autre service susceptible
+        de déposer des cookies, cette page serait mise à jour et un mécanisme de consentement
+        conforme serait mis en place au préalable.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Pour toute question : <a href={`mailto:${siteConfig.contact.email}`}
+          >{siteConfig.contact.email}</a
+        >.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,17 +1,65 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/lib/site-config';
+
+const updated = '26 juin 2026';
 ---
 
 <BaseLayout
   title="Mentions légales"
-  description="Mentions légales de 2 LACS Informatique."
+  description="Mentions légales du site 2 LACS Informatique."
   path="/mentions-legales"
 >
-  <section class="mx-auto max-w-3xl px-6 py-20">
+  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
     <h1 class="text-3xl font-bold tracking-tight text-brand-900">Mentions légales</h1>
-    <p class="mt-6 leading-relaxed text-brand-900/80">
-      {/* TODO: éditeur, hébergeur (Amen.fr), RGPD/cookies — à reprendre de l'ancien site. */}
-      Contenu à compléter lors de la migration.
-    </p>
+    <p class="mt-2 text-sm text-brand-900/50">Dernière mise à jour : {updated}</p>
+
+    <div class="rich-text mt-10">
+      <h2>Éditeur du site</h2>
+      <p>
+        Le présent site est édité par <strong>{siteConfig.name}</strong>, nom commercial de
+        l'entreprise individuelle Christophe REVOIRE.<br />
+        Statut : entrepreneur individuel (EI)<br />
+        Siège social : 805 Route d'Ansigny, 73410 Entrelacs, France<br />
+        SIRET : 978 059 830 00015 — RCS Chambéry 978 059 830<br />
+        TVA non applicable, art. 293 B du CGI (franchise en base de TVA)<br />
+        Courriel : <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+      </p>
+
+      <h2>Directeur de la publication</h2>
+      <p>Christophe REVOIRE, en sa qualité d'exploitant.</p>
+
+      <h2>Hébergeur</h2>
+      <p>
+        Le site est hébergé par <strong>Agence des Médias Numériques (Amen)</strong>, SAS — <a
+          href="https://www.amen.fr"
+          rel="noopener">amen.fr</a
+        >.<br />
+        Siège : 200 rue de la Croix Nivert, 75015 Paris — SIRET 421&nbsp;527&nbsp;797&nbsp;00078.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des contenus de ce site (textes, logo, charte graphique) est la propriété de {
+          siteConfig.name
+        }, sauf mention contraire. Les marques et logos des partenaires technologiques cités
+        appartiennent à leurs détenteurs respectifs et sont reproduits avec leur autorisation ou à
+        titre d'information. Toute reproduction sans accord préalable est interdite.
+      </p>
+
+      <h2>Responsabilité</h2>
+      <p>
+        {siteConfig.name} s'efforce d'assurer l'exactitude des informations publiées sur ce site mais
+        ne saurait être tenue responsable des omissions, inexactitudes ou carences de mise à jour, qu'elles
+        soient de son fait ou du fait de tiers partenaires.
+      </p>
+
+      <h2>Données personnelles et cookies</h2>
+      <p>
+        Le traitement de vos données personnelles est détaillé dans notre <a
+          href="/politique-de-confidentialite">politique de confidentialité</a
+        > et notre <a href="/politique-de-cookies">politique de cookies</a>.
+      </p>
+    </div>
   </section>
 </BaseLayout>
