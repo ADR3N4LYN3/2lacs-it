@@ -21,16 +21,24 @@ type Props = SeoInput;
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    {/* Applique le thème AVANT le paint pour éviter tout flash (FOUC). */}
+    {
+      /* Thème appliqué AVANT le paint (anti-FOUC) + réappliqué après chaque navigation client
+        (les View Transitions réinitialisent la classe de <html> avec celle de la page statique). */
+    }
     <script is:inline>
       (() => {
-        try {
-          const t = localStorage.getItem('theme');
-          if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches))
-            document.documentElement.classList.add('dark');
-        } catch {
-          /* stockage indisponible : on ignore */
-        }
+        const apply = () => {
+          let dark = false;
+          try {
+            const t = localStorage.getItem('theme');
+            dark = t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches);
+          } catch {
+            /* stockage indisponible : on ignore */
+          }
+          document.documentElement.classList.toggle('dark', dark);
+        };
+        apply();
+        document.addEventListener('astro:after-swap', apply);
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
