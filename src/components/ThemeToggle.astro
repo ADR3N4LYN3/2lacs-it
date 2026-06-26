@@ -1,0 +1,43 @@
+---
+/**
+ * Bouton de bascule clair / sombre.
+ * Aucune logique ici : le clic est capté par délégation dans BaseLayout
+ * (attribut `data-theme-toggle`), et le thème est appliqué avant le paint.
+ */
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-edge text-muted transition hover:border-accent-400 hover:text-content"
+  aria-label="Basculer entre thème clair et sombre"
+  title="Thème clair / sombre"
+>
+  <svg
+    class="h-[18px] w-[18px] dark:hidden"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+  <svg
+    class="hidden h-[18px] w-[18px] dark:block"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path
+      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+    ></path>
+  </svg>
+</button>

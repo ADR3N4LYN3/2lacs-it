@@ -1,13 +1,21 @@
 @import 'tailwindcss';
 
+/* Dark mode piloté par la classe .dark sur <html> (toggle manuel + préférence système). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
  * Design system — « Alpine Dusk ».
  * Identité tirée du logo 2 LACS : navy profond + dégradé soleil couchant (or → corail → rose)
  * sur le motif montagne, papier chaud, texture topographique (courbes de niveau).
- * Source unique de l'identité visuelle. Customisation fine → skill topic-design-system.
+ *
+ * Deux familles de tokens :
+ *  - palette brute (brand/accent/lake/paper/sand) — valeurs fixes, identiques clair/sombre.
+ *  - tokens sémantiques (surface/card/panel/content/muted/edge) — basculent sous .dark.
+ * Les composants « surface » utilisent les tokens sémantiques ; les ancres sombres
+ * (hero, footer, bandes navy) et les accents sunset utilisent la palette brute.
  */
 @theme {
-  /* Navy / ardoise alpine (texte, sections sombres) */
+  /* Navy / ardoise alpine */
   --color-brand-50: oklch(0.96 0.012 255);
   --color-brand-100: oklch(0.92 0.022 255);
   --color-brand-200: oklch(0.83 0.035 256);
@@ -18,23 +26,45 @@
   --color-brand-800: oklch(0.25 0.05 263);
   --color-brand-900: oklch(0.19 0.042 264);
 
-  /* Sunset — dégradé du logo (or → corail → rose). Accent signature. */
+  /* Sunset — dégradé du logo (or → corail → rose). Accent signature, identique clair/sombre. */
   --color-accent-300: oklch(0.84 0.13 72);
   --color-accent-400: oklch(0.75 0.15 38);
   --color-accent-500: oklch(0.7 0.16 20);
   --color-accent-600: oklch(0.66 0.17 8);
 
-  /* Lac (eau turquoise de la photo) — accent secondaire froid */
+  /* Lac (eau turquoise) — accent secondaire froid */
   --color-lake-400: oklch(0.78 0.1 198);
   --color-lake-600: oklch(0.58 0.09 205);
 
-  /* Neutres chauds — fini le blanc pur */
+  /* Neutres chauds bruts */
   --color-paper: oklch(0.985 0.008 80);
   --color-sand: oklch(0.955 0.014 78);
   --color-ink: oklch(0.17 0.04 264);
 
+  /* Tokens sémantiques — valeurs CLAIRES par défaut (override sous .dark plus bas). */
+  --color-surface: oklch(0.985 0.008 80);
+  --color-card: oklch(1 0 0);
+  --color-panel: oklch(0.955 0.014 78);
+  --color-content: oklch(0.19 0.042 264);
+  --color-muted: oklch(0.37 0.05 262);
+  --color-edge: oklch(0.91 0.022 255);
+
   --font-sans: 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Bricolage Grotesque Variable', 'Hanken Grotesk Variable', sans-serif;
+}
+
+/* Bascule sombre — « Alpine Night ». Seuls les tokens sémantiques changent. */
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+  --color-surface: oklch(0.155 0.032 264);
+  --color-card: oklch(0.205 0.04 263);
+  --color-panel: oklch(0.185 0.036 264);
+  --color-content: oklch(0.96 0.008 80);
+  --color-muted: oklch(0.74 0.025 256);
+  --color-edge: oklch(0.3 0.05 262);
 }
 
 html {
@@ -42,7 +72,7 @@ html {
 }
 
 body {
-  @apply bg-paper text-brand-900 antialiased;
+  @apply bg-surface text-content antialiased;
   font-feature-settings: 'ss01', 'cv01';
 }
 
@@ -62,7 +92,7 @@ h4 {
   @apply h-2 w-2 -skew-x-12 bg-accent-400;
 }
 
-/* Texture topographique (courbes de niveau) — posée sur les sections sombres. */
+/* Texture topographique (courbes de niveau) — sections sombres. */
 .topo {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.2'%3E%3Cpath d='M-20 60 C 40 20 120 90 200 50 S 320 20 380 60'/%3E%3Cpath d='M-20 96 C 40 56 120 126 200 86 S 320 56 380 96'/%3E%3Cpath d='M-20 132 C 40 92 120 162 200 122 S 320 92 380 132'/%3E%3Cpath d='M-20 168 C 40 128 120 198 200 158 S 320 128 380 168'/%3E%3Cpath d='M-20 204 C 40 164 120 234 200 194 S 320 164 380 204'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 240px 240px;
@@ -95,16 +125,16 @@ h4 {
  * Évite @tailwindcss/typography : règles ciblées sur les balises générées.
  */
 .rich-text {
-  @apply leading-relaxed text-brand-800/90;
+  @apply leading-relaxed text-muted;
 }
 .rich-text > * + * {
   @apply mt-4;
 }
 .rich-text h2 {
-  @apply mt-10 font-display text-2xl font-semibold tracking-tight text-brand-900;
+  @apply mt-10 font-display text-2xl font-semibold tracking-tight text-content;
 }
 .rich-text h3 {
-  @apply mt-8 font-display text-lg font-semibold text-brand-900;
+  @apply mt-8 font-display text-lg font-semibold text-content;
 }
 .rich-text ul {
   @apply mt-4 list-none space-y-2 pl-0;
@@ -120,8 +150,8 @@ h4 {
   @apply font-medium text-accent-600 underline decoration-accent-300 decoration-2 underline-offset-2 hover:text-accent-500;
 }
 .rich-text strong {
-  @apply font-semibold text-brand-900;
+  @apply font-semibold text-content;
 }
 .rich-text blockquote {
-  @apply mt-6 border-l-4 border-accent-400 bg-sand py-3 pr-3 pl-4 text-brand-800 italic;
+  @apply mt-6 border-l-4 border-accent-400 bg-panel py-3 pr-3 pl-4 text-muted italic;
 }
