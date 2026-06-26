@@ -27,6 +27,18 @@ jobs:
 
       - run: pnpm build
 
+      # Secret Turnstile (chiffré dans GitHub) → /www/contact-secret.php, jamais commité.
+      - name: Secret du formulaire (Turnstile)
+        env:
+          TS: ${{ secrets.TURNSTILE_SECRET }}
+        run: |
+          if [ -n "$TS" ]; then
+            printf "<?php\ndefine('TURNSTILE_SECRET', '%s');\n" "$TS" > dist/contact-secret.php
+            echo "contact-secret.php généré"
+          else
+            echo "TURNSTILE_SECRET absent — étape ignorée"
+          fi
+
       - name: Déploiement FTP (lftp)
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
