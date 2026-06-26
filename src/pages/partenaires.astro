@@ -1,0 +1,71 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { partners } from '@/lib/partners';
+---
+
+<BaseLayout
+  title="Partenaires"
+  description="Nos partenaires technologiques : SonicWall, Veeam, PRTG, WatchGuard, Dell, Vade et Arrow ECS. Des solutions de pointe pour votre système d'information."
+  path="/partenaires"
+>
+  <section class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+    <h1 class="text-3xl font-bold tracking-tight text-brand-900 sm:text-4xl">Nos partenaires</h1>
+    <p class="mt-6 leading-relaxed text-brand-900/80">
+      Nos partenaires technologiques jouent un rôle essentiel dans notre capacité à répondre à vos
+      besoins et à évoluer avec les défis du monde numérique. Leurs solutions de pointe enrichissent
+      notre offre et nous permettent de vous proposer des services à la pointe de l'innovation.
+    </p>
+    <p class="mt-4 leading-relaxed text-brand-900/80">
+      Chacun partage notre engagement envers la qualité, la fiabilité et la satisfaction client.
+      Ensemble, nous vous fournissons des solutions intégrées et performantes — pour la sécurité, la
+      gestion des données, les services cloud ou toute autre nécessité technologique.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <ul class="grid gap-6 sm:grid-cols-2">
+      {
+        partners.map((p) => (
+          <li class="flex flex-col rounded-xl border border-brand-100 bg-white p-6 shadow-sm">
+            <div class="flex h-16 items-center">
+              <img
+                src={p.logo}
+                alt={`Logo ${p.name}`}
+                loading="lazy"
+                decoding="async"
+                class="max-h-12 w-auto max-w-[180px] object-contain"
+              />
+            </div>
+            <h2 class="mt-4 text-lg font-semibold text-brand-700">{p.name}</h2>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-brand-900/70">{p.description}</p>
+            <a
+              class="mt-4 text-sm font-medium text-brand-600 hover:underline"
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Visiter le site <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="bg-brand-50">
+    <div class="mx-auto max-w-4xl px-6 py-16 text-center">
+      <h2 class="text-2xl font-bold tracking-tight text-brand-900">
+        Une technologie adaptée à vos besoins
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-brand-900/70">
+        Nous vous aidons à choisir et déployer les solutions les mieux adaptées à votre activité.
+      </p>
+      <a
+        href="/contact"
+        class="mt-8 inline-block rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700"
+      >
+        Échanger avec nous
+      </a>
+    </div>
+  </section>
+</BaseLayout>
