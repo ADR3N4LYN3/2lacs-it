@@ -1,6 +1,8 @@
 ---
-/** Bandeau d'accueil. Contenu paramétrable via props, valeurs par défaut depuis site-config. */
+/** Bandeau d'accueil « Alpine Dusk ». Contenu paramétrable, défauts depuis site-config. */
+import { Image } from 'astro:assets';
 import { siteConfig } from '@/lib/site-config';
+import mark from '@/assets/logo-mark.png';
 
 interface Props {
   title?: string;
@@ -8,24 +10,43 @@ interface Props {
 }
 
 const { title = siteConfig.tagline, subtitle = siteConfig.description } = Astro.props;
+const words = title.split(' ');
+const lead = words.slice(0, -1).join(' ');
+const last = words.at(-1);
 ---
 
-<section
-  class="relative overflow-hidden bg-gradient-to-br from-brand-700 via-brand-600 to-accent-500 text-white"
->
-  <div class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-    <h1 class="max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">{title}</h1>
-    <p class="mt-6 max-w-2xl text-lg text-white/90">{subtitle}</p>
+<section class="relative isolate overflow-hidden bg-brand-900 text-paper">
+  <div class="topo absolute inset-0"></div>
+  <div class="glow-sunset absolute inset-0"></div>
+  <Image
+    src={mark}
+    alt=""
+    aria-hidden="true"
+    width={640}
+    class="pointer-events-none absolute -right-12 -bottom-10 w-[min(52vw,640px)] opacity-[0.08] select-none"
+  />
+
+  <div class="relative mx-auto max-w-6xl px-6 py-24 sm:py-32">
+    <p class="flex items-center gap-2.5 text-sm font-medium tracking-wide text-paper/70">
+      <span class="inline-block h-2 w-2 -skew-x-12 bg-accent-400"></span>
+      Savoie · entre lac du Bourget et lac d'Annecy
+    </p>
+    <h1
+      class="mt-5 max-w-3xl font-display text-5xl font-bold leading-[1.05] tracking-tight text-balance sm:text-6xl"
+    >
+      {lead}{' '}<span class="text-sunset">{last}</span>
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-relaxed text-paper/75">{subtitle}</p>
     <div class="mt-10 flex flex-wrap gap-4">
       <a
         href="/contact"
-        class="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-brand-700 shadow-sm transition hover:bg-brand-50"
+        class="rounded-full bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600 px-6 py-3 text-sm font-semibold text-brand-900 shadow-lg shadow-accent-500/25 transition hover:brightness-105"
       >
         Nous contacter
       </a>
       <a
-        href="/#services"
-        class="rounded-lg border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+        href="/services"
+        class="rounded-full border border-paper/25 px-6 py-3 text-sm font-semibold text-paper transition hover:border-paper/40 hover:bg-paper/10"
       >
         Nos services
       </a>

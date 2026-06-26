@@ -1,23 +1,79 @@
 ---
-/** En-tête de navigation. Données issues de site-config (pas de lien en dur). */
+/** En-tête : logo réel + navigation. Données issues de site-config (aucun lien en dur). */
+import { Image } from 'astro:assets';
 import { siteConfig } from '@/lib/site-config';
+import logo from '@/assets/logo-2lacs.png';
 
-const { nav, shortName } = siteConfig;
+const { nav } = siteConfig;
+const links = nav.filter((i) => i.label !== 'Contact');
 ---
 
-<header class="sticky top-0 z-50 border-b border-brand-100 bg-white/90 backdrop-blur">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-bold tracking-tight text-brand-700">{shortName}</a>
-    <ul class="flex items-center gap-6 text-sm font-medium">
-      {
-        nav.map((item) => (
-          <li>
-            <a class="text-brand-900/80 transition-colors hover:text-brand-600" href={item.href}>
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+<header class="sticky top-0 z-50 border-b border-brand-100/70 bg-paper/85 backdrop-blur-md">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
+    <a href="/" class="shrink-0" aria-label="2 LACS Informatique, accueil">
+      <Image src={logo} alt="2 LACS Informatique" height={72} class="h-9 w-auto" />
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      <ul class="flex items-center gap-7 text-sm font-medium">
+        {
+          links.map((item) => (
+            <li>
+              <a
+                class="group relative py-1 text-brand-700 transition-colors hover:text-brand-900"
+                href={item.href}
+              >
+                {item.label}
+                <span class="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-accent-400 transition-all duration-300 group-hover:w-full" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href="/contact"
+        class="rounded-full bg-brand-900 px-5 py-2 text-sm font-semibold text-paper shadow-sm transition hover:bg-brand-800"
+      >
+        Contact
+      </a>
+    </div>
+
+    <details class="relative md:hidden">
+      <summary
+        class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg text-brand-800 [&::-webkit-details-marker]:hidden"
+        aria-label="Ouvrir le menu"
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </summary>
+      <ul
+        class="absolute right-0 mt-2 w-52 rounded-xl border border-brand-100 bg-paper p-2 shadow-xl"
+      >
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                class="block rounded-lg px-3 py-2 text-sm font-medium text-brand-800 hover:bg-sand"
+                href={item.href}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </details>
   </nav>
 </header>
