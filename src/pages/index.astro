@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import { services } from '@/lib/services';
+---
+
+<BaseLayout>
+  <Hero />
+
+  <section id="services" class="mx-auto max-w-6xl scroll-mt-20 px-6 py-20">
+    <h2 class="text-3xl font-bold tracking-tight text-brand-900">Nos services</h2>
+    <p class="mt-3 max-w-2xl text-brand-900/70">
+      Un partenaire unique pour concevoir, déployer et maintenir votre système d'information.
+    </p>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => <ServiceCard title={service.title} summary={service.summary} />)}
+    </div>
+  </section>
+</BaseLayout>

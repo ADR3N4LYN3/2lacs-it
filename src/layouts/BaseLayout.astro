@@ -1,0 +1,34 @@
+---
+/**
+ * Shell HTML de toutes les pages (orchestrateur de mise en page).
+ * Compose <head> SEO + Header + slot + Footer. Aucune logique métier.
+ */
+import '../styles/global.css';
+import SEO from '@/components/SEO.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { siteConfig } from '@/lib/site-config';
+import type { SeoInput } from '@/lib/seo';
+
+type Props = SeoInput;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <SEO {...Astro.props} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <link rel="me" href={siteConfig.url} />
+  </body>
+</html>

@@ -1,0 +1,30 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# environment variables (garder .env.example)
+.env
+.env.*
+!.env.example
+
+# logs & tmp
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+tmp/
+.cache/
+
+# contenu legacy aspiré (non versionné — voir docs/content-inventory.md)
+legacy/
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.idea/
+*.swp

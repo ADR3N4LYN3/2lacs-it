@@ -1,0 +1,23 @@
+---
+/** En-tête de navigation. Données issues de site-config (pas de lien en dur). */
+import { siteConfig } from '@/lib/site-config';
+
+const { nav, shortName } = siteConfig;
+---
+
+<header class="sticky top-0 z-50 border-b border-brand-100 bg-white/90 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <a href="/" class="text-lg font-bold tracking-tight text-brand-700">{shortName}</a>
+    <ul class="flex items-center gap-6 text-sm font-medium">
+      {
+        nav.map((item) => (
+          <li>
+            <a class="text-brand-900/80 transition-colors hover:text-brand-600" href={item.href}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

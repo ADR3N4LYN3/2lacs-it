@@ -1,0 +1,27 @@
+---
+/**
+ * Rend les balises <head> SEO à partir du module `seo` (source unique).
+ * Aucune logique ici : compose le résultat de buildSeo().
+ */
+import { buildSeo, type SeoInput } from '@/lib/seo';
+import { siteConfig } from '@/lib/site-config';
+
+type Props = SeoInput;
+
+const { title, description, canonical } = buildSeo(Astro.props);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={siteConfig.locale} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />

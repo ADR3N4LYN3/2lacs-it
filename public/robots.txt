@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://2lacs-it.com/sitemap-index.xml

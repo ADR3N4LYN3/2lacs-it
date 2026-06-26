@@ -1,0 +1,42 @@
+---
+/** Pied de page : coordonnées + réseaux + liens légaux. Données issues de site-config. */
+import { siteConfig } from '@/lib/site-config';
+
+const { name, tagline, contact, social } = siteConfig;
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-brand-100 bg-brand-50">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3">
+    <div>
+      <p class="text-base font-bold text-brand-700">{name}</p>
+      <p class="mt-1 text-sm text-brand-900/70">{tagline}</p>
+    </div>
+    <div class="text-sm">
+      <p class="font-semibold text-brand-900">Contact</p>
+      <a class="mt-1 block text-brand-600 hover:underline" href={`mailto:${contact.email}`}>
+        {contact.email}
+      </a>
+    </div>
+    <div class="text-sm">
+      <p class="font-semibold text-brand-900">Suivez-nous</p>
+      <ul class="mt-1 flex gap-4">
+        {
+          social.map((s) => (
+            <li>
+              <a class="text-brand-600 hover:underline" href={s.href}>
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-brand-100 px-6 py-4 text-center text-xs text-brand-900/60">
+    <a class="hover:underline" href="/mentions-legales">Mentions légales</a>
+    <span class="mx-2">·</span>
+    © {year}
+    {name}
+  </div>
+</footer>
