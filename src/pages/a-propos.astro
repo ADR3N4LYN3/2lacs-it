@@ -19,19 +19,17 @@ const stats = [
   <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
     <div class="grid items-center gap-12 lg:grid-cols-2">
       <div>
-        <p class="text-sm font-semibold tracking-wide text-brand-600 uppercase">
-          À propos de l'entreprise
-        </p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight text-brand-900 sm:text-4xl">
+        <p class="eyebrow">À propos de l'entreprise</p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight text-content sm:text-4xl">
           Votre partenaire informatique de proximité
         </h1>
-        <p class="mt-6 leading-relaxed text-brand-900/80">
+        <p class="mt-6 leading-relaxed text-muted">
           Entre le lac du Bourget et le lac d'Annecy, 2 LACS Informatique est spécialisée dans la
           prestation de services informatiques dédiés aux TPE/PME. Notre objectif premier :
           accompagner nos clients dans leur développement en leur fournissant des solutions
           technologiques adaptées à leurs besoins spécifiques.
         </p>
-        <p class="mt-4 leading-relaxed text-brand-900/80">
+        <p class="mt-4 leading-relaxed text-muted">
           Avec des compétences diversifiées, nous nous concentrons sur l'infrastructure systèmes et
           réseaux, afin que nos clients disposent d'une base solide et fiable pour leur activité.
           Conscients de l'importance grandissante du cloud, nous proposons également des solutions
@@ -40,7 +38,7 @@ const stats = [
         </p>
       </div>
 
-      <figure class="overflow-hidden rounded-2xl shadow-md">
+      <figure class="overflow-hidden rounded-2xl shadow-md ring-1 ring-edge">
         <Image
           src={lacPhoto}
           alt="Vue sur le lac du Bourget, en Savoie"
@@ -58,10 +56,10 @@ const stats = [
     <dl class="mt-16 grid gap-6 sm:grid-cols-3">
       {
         stats.map((s) => (
-          <div class="rounded-xl border border-brand-100 bg-brand-50 px-6 py-8 text-center">
+          <div class="rounded-xl border border-edge bg-panel px-6 py-8 text-center">
             <dt class="sr-only">{s.label}</dt>
-            <dd class="text-3xl font-bold text-brand-700">{s.value}</dd>
-            <dd class="mt-1 text-sm text-brand-900/60">{s.label}</dd>
+            <dd class="font-display text-3xl font-bold text-content">{s.value}</dd>
+            <dd class="mt-1 text-sm text-muted">{s.label}</dd>
           </div>
         ))
       }
@@ -69,16 +67,16 @@ const stats = [
   </section>
 
   <!-- Pourquoi nous -->
-  <section class="bg-brand-50">
+  <section class="bg-panel">
     <div class="mx-auto max-w-4xl px-6 py-16">
-      <h2 class="text-2xl font-bold tracking-tight text-brand-900">Pourquoi nous ?</h2>
-      <p class="mt-5 leading-relaxed text-brand-900/80">
+      <h2 class="text-2xl font-bold tracking-tight text-content">Pourquoi nous ?</h2>
+      <p class="mt-5 leading-relaxed text-muted">
         Nous mettons tout en œuvre pour offrir des services de qualité supérieure, une expertise
         approfondie et des solutions personnalisées qui aident nos clients à atteindre leurs
         objectifs informatiques et à prospérer dans un environnement technologique en constante
         évolution.
       </p>
-      <p class="mt-4 leading-relaxed text-brand-900/80">
+      <p class="mt-4 leading-relaxed text-muted">
         Nous mettons à votre service nos compétences informatiques et notre réactivité pour assurer
         votre réussite. Fournir les bonnes solutions peut vous permettre de franchir des étapes
         importantes et d'atteindre de nouveaux sommets.
@@ -88,25 +86,25 @@ const stats = [
 
   <!-- L'équipe -->
   <section class="mx-auto max-w-4xl px-6 py-16">
-    <h2 class="text-2xl font-bold tracking-tight text-brand-900">La team</h2>
+    <h2 class="text-2xl font-bold tracking-tight text-content">La team</h2>
     <div
-      class="mt-8 flex flex-col items-start gap-4 rounded-2xl border border-brand-100 p-6 sm:flex-row sm:items-center sm:gap-6"
+      class="mt-8 flex flex-col items-start gap-4 rounded-2xl border border-edge p-6 sm:flex-row sm:items-center sm:gap-6"
     >
       <span
-        class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xl font-bold text-white"
+        class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent-300 to-accent-500 font-display text-xl font-bold text-brand-900"
         aria-hidden="true"
       >
         CR
       </span>
       <div class="flex-1">
-        <p class="text-lg font-semibold text-brand-900">Christophe REVOIRE</p>
-        <p class="text-sm text-brand-900/60">Fondateur &amp; dirigeant</p>
+        <p class="text-lg font-semibold text-content">Christophe REVOIRE</p>
+        <p class="text-sm text-muted">Fondateur &amp; dirigeant</p>
       </div>
       <ul class="flex gap-4 text-sm">
         {
           siteConfig.social.map((s) => (
             <li>
-              <a class="text-brand-600 hover:underline" href={s.href} rel="noopener">
+              <a class="text-accent-600 hover:underline" href={s.href} rel="noopener">
                 {s.label}
               </a>
             </li>
@@ -117,15 +115,17 @@ const stats = [
   </section>
 
   <!-- CTA -->
-  <section class="bg-gradient-to-br from-brand-700 to-brand-600 text-white">
-    <div class="mx-auto max-w-4xl px-6 py-16 text-center">
+  <section class="relative isolate overflow-hidden bg-brand-900 text-paper">
+    <div class="topo absolute inset-0"></div>
+    <div class="glow-sunset absolute inset-0"></div>
+    <div class="relative mx-auto max-w-4xl px-6 py-16 text-center">
       <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Travaillons ensemble</h2>
-      <p class="mx-auto mt-4 max-w-xl text-white/90">
+      <p class="mx-auto mt-4 max-w-xl text-paper/80">
         Un projet, une question ? Nous serons ravis d'échanger avec vous.
       </p>
       <a
         href="/contact"
-        class="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-semibold text-brand-700 shadow-sm transition hover:bg-brand-50"
+        class="mt-8 inline-block rounded-full bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600 px-7 py-3 text-sm font-semibold text-brand-900 shadow-lg shadow-accent-500/25 transition hover:brightness-105"
       >
         Nous contacter
       </a>
