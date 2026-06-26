@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-const CONTACT_TO   = 'contact@2lacs-it.com';        // TODO: destinataire réel
+const CONTACT_TO   = 'contact@2lacs-it.com';        // destinataire confirmé par le client
 const CONTACT_FROM = 'no-reply@2lacs-it.com';       // doit appartenir au domaine
 const RATE_SECONDS = 20;                            // 1 envoi / IP / RATE_SECONDS
 

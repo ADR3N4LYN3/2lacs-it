@@ -22,15 +22,25 @@ export const siteConfig = {
   description:
     "2 LACS Informatique, basée à Entrelacs (Savoie), accompagne les TPE/PME entre lac du Bourget et lac d'Annecy : infrastructure, réseaux, cloud, cybersécurité et support.",
   contact: {
-    // TODO: email de réception réel à confirmer (→ CONTACT_TO dans public/contact.php).
+    // Destinataire confirmé par le client (→ CONTACT_TO dans public/contact.php).
     email: 'contact@2lacs-it.com',
     phone: '',
   },
+  /** Portail client (contrats de support technique) — hébergé hors de ce site. */
+  supportUrl: 'https://support.2lacs-it.com',
   nav: [
     { label: 'Accueil', href: '/' },
-    { label: 'Services', href: '/#services' },
+    { label: 'Services', href: '/services' },
+    { label: 'Partenaires', href: '/partenaires' },
     { label: 'À propos', href: '/a-propos' },
     { label: 'Contact', href: '/contact' },
+  ] as const satisfies readonly NavItem[],
+  /** Liens légaux (pied de page). Slugs conservés à l'identique de l'ancien site (SEO). */
+  legal: [
+    { label: 'Mentions légales', href: '/mentions-legales' },
+    { label: 'Politique de confidentialité', href: '/politique-de-confidentialite' },
+    { label: 'Politique de cookies', href: '/politique-de-cookies' },
+    { label: 'Conditions générales', href: '/conditions-generales' },
   ] as const satisfies readonly NavItem[],
   social: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/2lacs-informatique' },

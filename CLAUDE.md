@@ -47,3 +47,7 @@ Site vitrine **2 LACS Informatique**, statique, hébergé chez Amen.fr (mutualis
 
 - (alimenté par /skill-retro)
 - `vitest.config.ts` : utiliser `defineConfig` de `vitest/config` (pas `getViteConfig` d'Astro) — sinon `astro check` rejette la clé `test`.
+- Tailwind v4 : seules les nuances `brand-*` déclarées dans `@theme` existent (50/100/300/500/600/700/900). `brand-200/400/800` font échouer le build (`Cannot apply unknown utility class`).
+- `<Image>` d'`astro:assets` nécessite `sharp` (devDep) — sinon le build casse sur `MissingSharp`. Médias éditoriaux → `src/assets/` + `<Image>` ; logos/icônes → `public/`.
+- Frontmatter Markdown : quoter toute valeur contenant `: ` (ex. un résumé avec deux-points), sinon YAML lève « bad indentation of a mapping entry ».
+- Contenu long-form = content collection `services` (`src/content/services/*.md`) ; `src/lib/services.ts` n'expose que l'accès typé. Ne pas remettre de prose dans le `.ts`.

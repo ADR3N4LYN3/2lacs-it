@@ -27,3 +27,32 @@ html {
 body {
   @apply bg-white text-brand-900 antialiased;
 }
+
+/*
+ * Prose éditoriale (rendu Markdown des pages détail/légales).
+ * Évite la dépendance @tailwindcss/typography : règles ciblées sur les balises générées.
+ */
+.rich-text {
+  @apply leading-relaxed text-brand-900/80;
+}
+.rich-text > * + * {
+  @apply mt-4;
+}
+.rich-text h2 {
+  @apply mt-10 text-xl font-bold tracking-tight text-brand-900;
+}
+.rich-text h3 {
+  @apply mt-8 text-lg font-semibold text-brand-900;
+}
+.rich-text ul {
+  @apply mt-4 list-disc space-y-2 pl-5 marker:text-brand-300;
+}
+.rich-text a {
+  @apply font-medium text-brand-600 hover:underline;
+}
+.rich-text strong {
+  @apply font-semibold text-brand-900;
+}
+.rich-text blockquote {
+  @apply mt-6 border-l-4 border-brand-300 bg-brand-50 py-3 pl-4 pr-3 text-brand-900/70 italic;
+}
