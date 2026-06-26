@@ -42,13 +42,14 @@ Site vitrine **2 LACS Informatique**, statique, hébergé chez Amen.fr (mutualis
 - Code et libellés en français (locale `fr-FR`).
 - Tailwind v4 : config dans `src/styles/global.css` (`@theme`), pas de `tailwind.config.js`. Customisation look → cf. skill `topic-design-system`.
 - Design system « Alpine Dusk » (`src/styles/global.css`) : navy `brand-*` + dégradé sunset `accent-*` (or→corail→rose, tiré du logo), neutres chauds `paper`/`sand`, titres `font-display` (Bricolage Grotesque) + corps Hanken Grotesk. Utilitaires maison : `.topo` (texture courbes de niveau, sections sombres), `.glow-sunset`, `.text-sunset`, `.eyebrow`. Logo réel dans `src/assets/` (`logo-2lacs` = header, `logo-mark` = mark/footer/hero). Garder cette identité — ne pas revenir au blanc plat ni au dégradé bleu générique.
+- Dark mode : classe `.dark` sur `<html>` (`ThemeToggle` + script anti-FOUC dans `BaseLayout`, préférence persistée en `localStorage`). Une surface qui doit basculer clair/sombre utilise les **tokens sémantiques** `surface`/`card`/`panel`/`content`/`muted`/`edge` — jamais `bg-white`/`bg-paper`/`text-brand-900` en dur. Les ancres volontairement sombres (hero, footer, bandes navy) et les accents `accent-*` (sunset) restent en palette brute, identiques dans les deux thèmes.
 - Doc API Astro/Tailwind à jour → MCP Context7 avant de coder.
 
 ## Pièges
 
 - (alimenté par /skill-retro)
 - `vitest.config.ts` : utiliser `defineConfig` de `vitest/config` (pas `getViteConfig` d'Astro) — sinon `astro check` rejette la clé `test`.
-- Tailwind v4 : seules les nuances `brand-*` déclarées dans `@theme` existent (50/100/300/500/600/700/900). `brand-200/400/800` font échouer le build (`Cannot apply unknown utility class`).
+- Tailwind v4 : une nuance non déclarée dans `@theme` fait échouer le build (`Cannot apply unknown utility class`). `brand-400` n'existe pas (palette : 50/100/200/300/500/600/700/800/900).
 - `<Image>` d'`astro:assets` nécessite `sharp` (devDep) — sinon le build casse sur `MissingSharp`. Médias éditoriaux → `src/assets/` + `<Image>` ; logos/icônes → `public/`.
 - Frontmatter Markdown : quoter toute valeur contenant `: ` (ex. un résumé avec deux-points), sinon YAML lève « bad indentation of a mapping entry ».
 - Contenu long-form = content collection `services` (`src/content/services/*.md`) ; `src/lib/services.ts` n'expose que l'accès typé. Ne pas remettre de prose dans le `.ts`.
