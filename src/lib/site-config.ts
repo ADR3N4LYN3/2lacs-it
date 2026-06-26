@@ -34,7 +34,7 @@ export const siteConfig = {
    * Renseigner après création du widget dans le dashboard Cloudflare ; côté serveur,
    * définir le secret dans `/www/contact-secret.php` (hors dépôt).
    */
-  turnstileSiteKey: '',
+  turnstileSiteKey: '0x4AAAAAADrf6GkFPsrkaN5_',
   nav: [
     { label: 'Accueil', href: '/' },
     { label: 'Services', href: '/services' },
