@@ -69,6 +69,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Réserve toujours la gouttière du scrollbar → pas de décalage horizontal
+     (ex. header qui « saute ») entre une page longue et une page courte. */
+  scrollbar-gutter: stable;
 }
 
 body {
