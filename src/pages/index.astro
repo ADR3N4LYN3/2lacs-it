@@ -2,19 +2,105 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
-import { services } from '@/lib/services';
+import { getServices, serviceHref } from '@/lib/services';
+import { partners } from '@/lib/partners';
+
+const services = await getServices();
 ---
 
 <BaseLayout>
-  <Hero />
+  <Hero
+    subtitle="Spécialistes des services informatiques pour les TPE/PME, entre lac du Bourget et lac d'Annecy : infrastructure, cloud, cybersécurité et support."
+  />
 
+  <!-- Services -->
   <section id="services" class="mx-auto max-w-6xl scroll-mt-20 px-6 py-20">
-    <h2 class="text-3xl font-bold tracking-tight text-brand-900">Nos services</h2>
-    <p class="mt-3 max-w-2xl text-brand-900/70">
-      Un partenaire unique pour concevoir, déployer et maintenir votre système d'information.
-    </p>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl font-bold tracking-tight text-brand-900">Nos services</h2>
+        <p class="mt-3 max-w-2xl text-brand-900/70">
+          Un partenaire unique pour concevoir, déployer, sécuriser et maintenir votre système
+          d'information.
+        </p>
+      </div>
+      <a href="/services" class="text-sm font-semibold text-brand-600 hover:underline">
+        Tous nos services <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
     <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {services.map((service) => <ServiceCard title={service.title} summary={service.summary} />)}
+      {
+        services.map((s) => (
+          <ServiceCard
+            title={s.data.title}
+            summary={s.data.summary}
+            href={serviceHref(s.id)}
+            icon={s.data.icon}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Votre réussite -->
+  <section class="bg-brand-50">
+    <div class="mx-auto max-w-4xl px-6 py-20 text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-brand-900">
+        Votre réussite est notre priorité
+      </h2>
+      <p class="mx-auto mt-5 max-w-2xl text-brand-900/70">
+        Nous fournissons des solutions sur mesure pour vous et votre entreprise, et vous aidons à
+        déployer rapidement les outils et logiciels dont vous avez besoin pour vos projets.
+      </p>
+      <p class="mx-auto mt-4 max-w-2xl text-brand-900/70">
+        L'informatique et le numérique sont aujourd'hui des thèmes stratégiques. Les bonnes
+        solutions vous permettent de franchir des étapes importantes et d'atteindre de nouveaux
+        sommets.
+      </p>
+    </div>
+  </section>
+
+  <!-- Partenaires -->
+  <section class="mx-auto max-w-6xl px-6 py-16">
+    <p class="text-center text-sm font-semibold tracking-wide text-brand-900/50 uppercase">
+      Nos partenaires technologiques
+    </p>
+    <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+      {
+        partners.map((p) => (
+          <li>
+            <img
+              src={p.logo}
+              alt={p.name}
+              height="28"
+              loading="lazy"
+              decoding="async"
+              class="h-7 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
+            />
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-8 text-center">
+      <a href="/partenaires" class="text-sm font-semibold text-brand-600 hover:underline">
+        Découvrir nos partenaires <span aria-hidden="true">→</span>
+      </a>
+    </p>
+  </section>
+
+  <!-- CTA final -->
+  <section class="bg-gradient-to-br from-brand-700 to-brand-600 text-white">
+    <div class="mx-auto max-w-4xl px-6 py-16 text-center">
+      <h2 class="text-3xl font-bold tracking-tight">Prêt à nous rejoindre ?</h2>
+      <p class="mx-auto mt-4 max-w-xl text-white/90">
+        N'hésitez pas à prendre contact avec nous pour tous types de projet.
+      </p>
+      <a
+        href="/contact"
+        class="mt-8 inline-block rounded-lg bg-white px-6 py-3 text-sm font-semibold text-brand-700 shadow-sm transition hover:bg-brand-50"
+      >
+        Contactez-nous
+      </a>
     </div>
   </section>
 </BaseLayout>

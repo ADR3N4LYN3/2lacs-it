@@ -1,55 +1,21 @@
 /**
- * Catalogue des prestations (module métier `services`).
- * 1 prestation = 1 entrée typée. Ajouter une prestation = ajouter un objet ici,
- * pas un bloc HTML en dur dans une page.
+ * Module métier `services` — surface d'accès typée au catalogue des prestations.
  *
- * Contenu provisoire dérivé du site actuel — à compléter/affiner avec l'export WP.
+ * Le contenu (1 prestation = 1 fichier `src/content/services/<slug>.md`) est la source unique :
+ * frontmatter = métadonnées de carte (titre, résumé, icône, ordre), corps = prose de la page détail.
+ * Ce module expose l'accès trié + la fabrique d'URL ; aucune autre couche ne requête la collection en direct.
  */
+import { getCollection, type CollectionEntry } from 'astro:content';
 
-export interface Service {
-  readonly slug: string;
-  readonly title: string;
-  readonly summary: string;
-  /** Nom d'icône (mappé côté composant). */
-  readonly icon: string;
+export type ServiceEntry = CollectionEntry<'services'>;
+
+/** Catalogue complet des prestations, trié par ordre d'affichage. */
+export async function getServices(): Promise<ServiceEntry[]> {
+  const all = await getCollection('services');
+  return all.sort((a, b) => a.data.order - b.data.order);
 }
 
-export const services: readonly Service[] = [
-  {
-    slug: 'audit-conseil',
-    title: 'Audit & Conseil',
-    summary:
-      "Analyse de votre système d'information et recommandations concrètes pour le faire évoluer.",
-    icon: 'search',
-  },
-  {
-    slug: 'integration',
-    title: 'Intégration',
-    summary: 'Déploiement et mise en œuvre de vos infrastructures et solutions logicielles.',
-    icon: 'layers',
-  },
-  {
-    slug: 'infogerance',
-    title: 'Infogérance',
-    summary: 'Gestion et supervision de votre parc informatique au quotidien.',
-    icon: 'server',
-  },
-  {
-    slug: 'cybersecurite',
-    title: 'Cybersécurité & CERT',
-    summary: 'Protection, détection et réponse aux incidents de sécurité.',
-    icon: 'shield',
-  },
-  {
-    slug: 'reseaux',
-    title: 'Réseaux & Infrastructure',
-    summary: 'Conception et maintien de réseaux fiables et performants.',
-    icon: 'network',
-  },
-  {
-    slug: 'support',
-    title: 'Support technique',
-    summary: 'Assistance réactive pour vos utilisateurs et vos équipes.',
-    icon: 'headset',
-  },
-] as const;
+/** URL canonique de la page détail d'une prestation. */
+export function serviceHref(id: string): string {
+  return `/services/${id}`;
+}

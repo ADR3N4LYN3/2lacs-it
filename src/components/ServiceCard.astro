@@ -1,15 +1,29 @@
 ---
-/** Carte d'une prestation. Reçoit un Service typé, ne contient aucune donnée en dur. */
-import type { Service } from '@/lib/services';
+/** Carte d'une prestation : lien vers la page détail. Ne contient aucune donnée en dur. */
+import Icon from '@/components/Icon.astro';
 
-type Props = Pick<Service, 'title' | 'summary'>;
+interface Props {
+  title: string;
+  summary: string;
+  href: string;
+  icon: string;
+}
 
-const { title, summary } = Astro.props;
+const { title, summary, href, icon } = Astro.props;
 ---
 
-<article
-  class="rounded-xl border border-brand-100 bg-white p-6 shadow-sm transition hover:border-brand-300 hover:shadow-md"
+<a
+  href={href}
+  class="group flex flex-col rounded-xl border border-brand-100 bg-white p-6 shadow-sm transition hover:border-brand-300 hover:shadow-md"
 >
-  <h3 class="text-lg font-semibold text-brand-700">{title}</h3>
-  <p class="mt-2 text-sm leading-relaxed text-brand-900/70">{summary}</p>
-</article>
+  <span
+    class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white"
+  >
+    <Icon name={icon} class="h-6 w-6" />
+  </span>
+  <h3 class="mt-4 text-lg font-semibold text-brand-700">{title}</h3>
+  <p class="mt-2 flex-1 text-sm leading-relaxed text-brand-900/70">{summary}</p>
+  <span class="mt-4 text-sm font-medium text-brand-600 group-hover:underline">
+    En savoir plus <span aria-hidden="true">→</span>
+  </span>
+</a>
